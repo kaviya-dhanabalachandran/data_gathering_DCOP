@@ -1,0 +1,646 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="0" />
+    <experiment length="1000"
+                ticks_per_second="10"
+                random_seed="0" />
+  </framework>
+
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+
+    <!-- controller for the virtual robot-->
+    <footbot_central_controller id="fcentral"
+      library="build/controllers/footbot_central/libfootbot_central_controller.so">
+      <actuators>
+
+       <footbot_wheels implementation="default" />
+       <footbot_leds   implementation="default" medium = "leds"/>
+       <footbot_beacon   implementation="default" />
+      </actuators>
+      <sensors>
+
+      </sensors>
+      <parameters alpha="7.5" delta="0.001" velocity="0"/>
+    </footbot_central_controller>
+
+    <!-- controller for the mission robot-->
+    
+     <footbot_mission_agent_controller id="fnav" 
+     library="build/controllers/footbot_mission_agents/libfootbot_mission_agents.so">
+    
+       <actuators>
+          <wifi implementation="extern" />
+        <footbot_wheels implementation="default" />
+        <footbot_leds   implementation="default" />
+        <footbot_beacon   implementation="default" />
+      </actuators>
+      <sensors>
+        <wifi implementation="extern" range="1.0" probability="1"/>
+        <footbot_proximity implementation="rot_z_only" 
+         show_rays="false" calibrate="true" />
+        <footbot_encoder implementation="default"/>
+      </sensors>
+      <parameters alpha="7.5" delta="0.001" velocity="10" interval="10" generators="0.4">
+
+       <optimalSpeed>0.1</optimalSpeed>
+       <safetyMargin>0.1</safetyMargin>
+       <socialMargin>0.1</socialMargin>
+       <resolution>201</resolution>
+       <horizon>5</horizon>
+       <timeHorizon>5.0</timeHorizon>
+       <aperture>3.2</aperture>
+       <tau>0.125</tau>
+       <eta>0.5</eta>
+       <local_navigation type="HL" NH="true"/>
+       <rotationTau>0.5</rotationTau>
+       <experiment name="Demo" duration="3000000" log="false"/>
+
+       <mobilitycontrol mode="MANUAL" />
+
+       <active_sensors gyroscope="false" rab="false" proximity="false" ground="false" distance_scanner="false"/>
+       <mobility rotation_max_speed='0.1' continuous='false'/>
+       <led_debugging leds="true" beacon="true" beacon_intensity="10"/>
+       <rab min_particle_separation="0.4" particle_age="5.0" min_particle_confidence="0.1"/>
+  <!-- Min distance from the current position to the target position to determine it this is reached (meters)-->
+  
+       <targetMinPointDistance>0.1</targetMinPointDistance>
+  <!-- Area bounds -->
+  <!--
+       <originAreaX>0.0</originAreaX>
+       <originAreaY>0.0</originAreaY>
+       <destinationAreaX>8.0</destinationAreaX>
+       <destinationAreaY>6.5</destinationAreaY>
+  -->
+   
+      <originAreaX>0.0</originAreaX>
+       <originAreaY>0.0</originAreaY>
+       <destinationAreaX>25.0</destinationAreaX>
+       <destinationAreaY>25.0</destinationAreaY>
+
+        <numberofAgent>10</numberofAgent>
+        <NumberOfGoalKnown>8</NumberOfGoalKnown>
+        
+      <agent>  
+        <agent1 id = "3" x="11.222" y="20.1792" 
+          goal1x="7.6997" goal1y = "20.2477"
+          goal2x="19.722" goal2y = "15.9338"
+          goal3x="5.6214" goal3y = "12.4554"
+          goal4x="7.9286" goal4y= "14.3686"
+          goal5x="8.8911" goal5y= "21.8655"
+          goal6x="19.7524" goal6y= "16.0638"
+          goal7x="16.6471" goal7y= "14.9933"
+          goal8x="10.1741" goal8y= "20.2446"/>
+
+        <agent2 id = "4" x="8.6167" y="20.1903" 
+          goal1x="12.922" goal1y = "13.0653"
+          goal2x="17.3185"  goal2y = "13.6793"
+          goal3x="1.0773," goal3y = "16.7321"
+          goal4x="13.6627" goal4y= "16.1169"
+          goal5x="1.8241" goal5y= "17.6467"
+          goal6x="21.0365" goal6y= "6.0959"
+          goal7x="1.8174" goal7y= "21.6972"
+          goal8x="11.0469" goal8y= "21.76569"/>
+
+        <agent3 id = "5" x="24.6114" y="15.6472" 
+          goal1x="2.6985" goal1y = "19.6392"
+          goal2x="8.1504"  goal2y = "4.428"
+          goal3x="10.5553" goal3y = "22.4516"
+          goal4x="15.4008" goal4y= "21.0465"
+          goal5x="12.3575" goal5y= "9.4914"
+          goal6x="17.1923" goal6y= "18.2731"
+          goal7x="18.1924" goal7y= "7.1844"
+          goal8x="24.6574" goal8y= "24.1252"/>
+
+        <agent4 id = "6" x="3.7736" y="24.819" 
+          goal1x="3.8778" goal1y = "16.9132"
+          goal2x="1.8636"  goal2y = "13.682"
+          goal3x="9.0739" goal3y = "24.4552"
+          goal4x="12.5268" goal4y= "12.873"
+          goal5x="3.6449" goal5y= "15.8023"
+          goal6x="10.7564" goal6y= "18.3159"
+          goal7x="13.5433" goal7y= "16.6841"
+          goal8x="17.1689" goal8y= "22.2831"/>
+
+         <agent5 id = "7" x="13.7965" y="17.1667" 
+          goal1x="1.3535" goal1y = "3.6412"
+          goal2x="21.3661" goal2y = "7.2874"
+          goal3x="2.5197" goal3y = "2.099"
+          goal4x="3.6702" goal4y= "17.2828"
+          goal5x="2.66" goal5y= "8.3447"
+          goal6x="18.9067" goal6y= "16.8195"
+          goal7x="24.3231" goal7y= "9.2685"
+          goal8x="22.7804" goal8y= "6.2894"/>
+
+        <agent6 id = "8" x="9.4276" y="15.9307" 
+          goal1x="3.2387" goal1y = "22.2935"
+          goal2x="15.8754"  goal2y = "22.8262"
+          goal3x="22.0311" goal3y = "10.6584"
+          goal4x="10.7781" goal4y= "22.8351"
+          goal5x="20.0538" goal5y= "8.3575"
+          goal6x="6.1154" goal6y= "14.7932"
+          goal7x="4.707" goal7y= "18.768"
+          goal8x="13.9666" goal8y= "22.0749"/>
+
+        <agent7 id = "9" x="21.8624" y="13.6649" 
+          goal1x="21.3691" goal1y = "24.0736"
+          goal2x="18.7676"  goal2y = "11.0684"
+          goal3x="1.0974" goal3y = "6.4233"
+          goal4x="8.4635" goal4y= "23.7051"
+          goal5x="5.8106" goal5y= "15.3286"
+          goal6x="8.9794" goal6y= "6.9956"
+          goal7x="11.2033" goal7y= "10.1452"
+          goal8x="1.9349" goal8y= "14.0972"/>
+
+        <agent8 id = "10" x="12.3515" y="6.0426" 
+          goal1x="13.4612" goal1y = "4.4886"
+          goal2x="22.7947"  goal2y = "1.7018"
+          goal3x="21.3354" goal3y = "16.7783"
+          goal4x="17.1113" goal4y= "10.382"
+          goal5x="10.4216" goal5y= "21.23"
+          goal6x="20.0614" goal6y= "14.0911"
+          goal7x="21.2246" goal7y= "14.9265"
+          goal8x="4.187" goal8y= "12.6257"/>
+
+        <agent9 id = "11" x="24.3156" y="13.4337" 
+          goal1x="22.2617" goal1y = "8.9302"
+          goal2x="21.747"  goal2y = "12.109"
+          goal3x="9.6827" goal3y = "12.4636"
+          goal4x="23.9768" goal4y= "21.2236"
+          goal5x="18.4808" goal5y= "3.0457"
+          goal6x="19.5731" goal6y= "5.0846"
+          goal7x="9.0053" goal7y= "2.1536"
+          goal8x="1.1058" goal8y= "4.4362"/>
+
+        <agent10 id = "12" x="16.7079" y="20.8015" 
+          goal1x="12.6838" goal1y = "13.0396"
+          goal2x="7.5084"  goal2y = "4.8274"
+          goal3x="9.7037" goal3y = "14.949"
+          goal4x="7.4787" goal4y= "23.0646"
+          goal5x="3.6702" goal5y= "17.5814"
+          goal6x="16.7845" goal6y= "14.8126"
+          goal7x="12.1456" goal7y= "24.5051"
+          goal8x="9.0892" goal8y= "10.6"/>
+
+      </agent>
+
+     </parameters>
+
+   
+    </footbot_mission_agent_controller>
+
+    <!-- controller for baseStation--> 
+    
+    <footbot_baseStation_controller id="fbase" 
+     library="build/controllers/footbot_baseStation/libfootbot_baseStation.so">
+
+      <actuators>
+        <wifi implementation="extern" />
+        <footbot_wheels implementation="default" />
+        <footbot_leds implementation="default" />
+        <footbot_beacon implementation="default" />
+      </actuators>
+
+      <sensors>
+        <wifi implementation="extern" />
+      </sensors>
+
+      <parameters alpha="7.5" delta="0.001" velocity="0">
+        <mobilitycontrol mode="LCM" />
+
+        <led_debugging leds="true" beacon="true" beacon_intensity="10"/>
+         <!-- Area bounds -->
+        <originAreaX>0.0</originAreaX>
+       <originAreaY>0.0</originAreaY>
+       <destinationAreaX>10.0</destinationAreaX>
+       <destinationAreaY>10.0</destinationAreaY>
+
+      </parameters>
+
+
+    </footbot_baseStation_controller>
+
+    
+     <!-- controller for the relay robot-->
+     
+    <footbot_relay_controller id="frelay" 
+      library="build/controllers/footbot_relay/libfootbot_relay.so">
+    
+       <actuators>
+       <!--<wifi implementation="default"  range="20" probability="1"/>-->
+       <!-- range = -1 is to have the range of relays throughout irrespective of the area --> 
+        <wifi implementation="dual" range="40" probability="1"/>
+      <!-- <wifiextern implementation="default" />-->
+        <footbot_wheels implementation="default" />
+        <footbot_leds   implementation="default" />
+        <footbot_beacon   implementation="default" />
+
+      </actuators>
+
+      <sensors>
+        <!-- <wifi implementation="extern" />-->
+         <wifi implementation="dual" />
+  
+        <footbot_proximity implementation="rot_z_only" 
+         show_rays="false" calibrate="true" />
+        <footbot_encoder implementation="default"/>
+      </sensors>
+
+      <parameters alpha="7.5" delta="0.001" velocity="15" interval="10" generators="0.4">
+       <optimalSpeed>0.3</optimalSpeed>
+       <safetyMargin>0.1</safetyMargin>
+       <socialMargin>0.1</socialMargin>
+       <resolution>201</resolution>
+       <horizon>5</horizon>
+       <timeHorizon>5.0</timeHorizon>
+       <aperture>3.2</aperture>
+       <tau>0.125</tau>
+       <eta>0.5</eta>
+       <local_navigation type="HL" NH="true"/>
+       <rotationTau>0.5</rotationTau>
+       <experiment name="Demo" duration="3000000" log="false"/>
+
+       <mobilitycontrol mode="MANUAL" />
+
+       <active_sensors gyroscope="false" rab="false" proximity="false" ground="false" distance_scanner="false"/>
+       <mobility rotation_max_speed='0.1' continuous='false'/>
+       <led_debugging leds="true" beacon="true" beacon_intensity="10"/>
+       <rab min_particle_separation="0.4" particle_age="5.0" min_particle_confidence="0.1"/>
+  <!-- Min distance from the current position to the target position to determine it this is reached (meters)-->
+  
+       <targetMinPointDistance>0.1</targetMinPointDistance>
+  <!-- Area bounds -->
+ 
+       <originAreaX>0.0</originAreaX>
+       <originAreaY>0.0</originAreaY>
+       <destinationAreaX>25.0</destinationAreaX>
+       <destinationAreaY>25.0</destinationAreaY>
+       <numberofrelay>1</numberofrelay>
+       <numberofBS>2</numberofBS>
+       <numberofAgent>10</numberofAgent>
+       
+       
+       <state> 
+        <base_station1 x="0.5" y="0.5"/>
+        <base_station2 x="24.5" y="24.5"/>
+       </state>
+
+      <NumberOfGoalKnown>8</NumberOfGoalKnown>
+      <agent>
+        
+        <agent1 id = "3" x="11.222" y="20.1792" 
+          goal1x="7.6997" goal1y = "20.2477"
+          goal2x="19.722" goal2y = "15.9338"
+          goal3x="5.6214" goal3y = "12.4554"
+          goal4x="7.9286" goal4y= "14.3686"
+          goal5x="8.8911" goal5y= "21.8655"
+          goal6x="19.7524" goal6y= "16.0638"
+          goal7x="16.6471" goal7y= "14.9933"
+          goal8x="10.1741" goal8y= "20.2446"/>
+
+        <agent2 id = "4" x="8.6167" y="20.1903" 
+          goal1x="12.922" goal1y = "13.0653"
+          goal2x="17.3185"  goal2y = "13.6793"
+          goal3x="1.0773," goal3y = "16.7321"
+          goal4x="13.6627" goal4y= "16.1169"
+          goal5x="1.8241" goal5y= "17.6467"
+          goal6x="21.0365" goal6y= "6.0959"
+          goal7x="1.8174" goal7y= "21.6972"
+          goal8x="11.0469" goal8y= "21.76569"/>
+
+        <agent3 id = "5" x="24.6114" y="15.6472" 
+          goal1x="2.6985" goal1y = "19.6392"
+          goal2x="8.1504"  goal2y = "4.428"
+          goal3x="10.5553" goal3y = "22.4516"
+          goal4x="15.4008" goal4y= "21.0465"
+          goal5x="12.3575" goal5y= "9.4914"
+          goal6x="17.1923" goal6y= "18.2731"
+          goal7x="18.1924" goal7y= "7.1844"
+          goal8x="24.6574" goal8y= "24.1252"/>
+
+        <agent4 id = "6" x="3.7736" y="24.819" 
+          goal1x="3.8778" goal1y = "16.9132"
+          goal2x="1.8636"  goal2y = "13.682"
+          goal3x="9.0739" goal3y = "24.4552"
+          goal4x="12.5268" goal4y= "12.873"
+          goal5x="3.6449" goal5y= "15.8023"
+          goal6x="10.7564" goal6y= "18.3159"
+          goal7x="13.5433" goal7y= "16.6841"
+          goal8x="17.1689" goal8y= "22.2831"/>
+
+         <agent5 id = "7" x="13.7965" y="17.1667" 
+          goal1x="1.3535" goal1y = "3.6412"
+          goal2x="21.3661" goal2y = "7.2874"
+          goal3x="2.5197" goal3y = "2.099"
+          goal4x="3.6702" goal4y= "17.2828"
+          goal5x="2.66" goal5y= "8.3447"
+          goal6x="18.9067" goal6y= "16.8195"
+          goal7x="24.3231" goal7y= "9.2685"
+          goal8x="22.7804" goal8y= "6.2894"/>
+
+        <agent6 id = "8" x="9.4276" y="15.9307" 
+          goal1x="3.2387" goal1y = "22.2935"
+          goal2x="15.8754"  goal2y = "22.8262"
+          goal3x="22.0311" goal3y = "10.6584"
+          goal4x="10.7781" goal4y= "22.8351"
+          goal5x="20.0538" goal5y= "8.3575"
+          goal6x="6.1154" goal6y= "14.7932"
+          goal7x="4.707" goal7y= "18.768"
+          goal8x="13.9666" goal8y= "22.0749"/>
+
+        <agent7 id = "9" x="21.8624" y="13.6649" 
+          goal1x="21.3691" goal1y = "24.0736"
+          goal2x="18.7676"  goal2y = "11.0684"
+          goal3x="1.0974" goal3y = "6.4233"
+          goal4x="8.4635" goal4y= "23.7051"
+          goal5x="5.8106" goal5y= "15.3286"
+          goal6x="8.9794" goal6y= "6.9956"
+          goal7x="11.2033" goal7y= "10.1452"
+          goal8x="1.9349" goal8y= "14.0972"/>
+
+        <agent8 id = "10" x="12.3515" y="6.0426" 
+          goal1x="13.4612" goal1y = "4.4886"
+          goal2x="22.7947"  goal2y = "1.7018"
+          goal3x="21.3354" goal3y = "16.7783"
+          goal4x="17.1113" goal4y= "10.382"
+          goal5x="10.4216" goal5y= "21.23"
+          goal6x="20.0614" goal6y= "14.0911"
+          goal7x="21.2246" goal7y= "14.9265"
+          goal8x="4.187" goal8y= "12.6257"/>
+
+        <agent9 id = "11" x="24.3156" y="13.4337" 
+          goal1x="22.2617" goal1y = "8.9302"
+          goal2x="21.747"  goal2y = "12.109"
+          goal3x="9.6827" goal3y = "12.4636"
+          goal4x="23.9768" goal4y= "21.2236"
+          goal5x="18.4808" goal5y= "3.0457"
+          goal6x="19.5731" goal6y= "5.0846"
+          goal7x="9.0053" goal7y= "2.1536"
+          goal8x="1.1058" goal8y= "4.4362"/>
+
+        <agent10 id = "12" x="16.7079" y="20.8015" 
+          goal1x="12.6838" goal1y = "13.0396"
+          goal2x="7.5084"  goal2y = "4.8274"
+          goal3x="9.7037" goal3y = "14.949"
+          goal4x="7.4787" goal4y= "23.0646"
+          goal5x="3.6702" goal5y= "17.5814"
+          goal6x="16.7845" goal6y= "14.8126"
+          goal7x="12.1456" goal7y= "24.5051"
+          goal8x="9.0892" goal8y= "10.6"/>
+
+      </agent>
+
+     <!--   <BaseStation2 param="position" x= "9.0" y="-9.0"/>
+       <BaseStation3 param="position" x= "9.0" y= "9.0"/>
+       <BaseStation4 param="position" x="-9.0" y= "9.0"/> 
+       
+       <Length param="value" origin="-2.0" destination="2.0"/>
+       <Breadth param="value" origin="-2.0" destination="2.0"/>
+       <Agentrange>1.0</Agentrange>-->
+
+    </parameters>
+    </footbot_relay_controller>
+   
+  </controllers>
+
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  
+
+  <!-- Size = Length of the boundary, width, height /
+   <arena size="10, 10, 1" positional_grid_size="0.5,0.5,1">
+
+    <box id="wall_north"
+         position="5,10,0"
+         orientation="0,0,0"
+         size="10.0,0.1,0.5"
+         movable="false" />
+    <box id="wall_south"
+         position="5,0,0"
+         orientation="0,0,0"
+         size="10.0,0.1,0.5"
+         movable="false" />
+    <box id="wall_east"
+         position="10,5,0"
+         orientation="0,0,0"
+         size="0.1,10.0,0.5"
+         movable="false" />
+    <box id="wall_west"
+         position="0,5,0"
+         orientation="0,0,0"
+         size="0.1,10.0,0.5"
+         movable="false" />-->
+   
+
+   <arena size="30, 30, 1" positional_grid_size="0.5,0.5,1">
+
+    <box id="wall_north"
+         position="12.5,25,0"
+         orientation="0,0,0"
+         size="25.0,0.1,0.5"
+         movable="false" />
+    <box id="wall_south"
+         position="12.5,0,0"
+         orientation="0,0,0"
+         size="25.0,0.1,0.5"
+         movable="false" />
+    <box id="wall_east"
+         position="25,12.5,0"
+         orientation="0,0,0"
+         size="0.1,25.0,0.5"
+         movable="false" />
+    <box id="wall_west"
+         position="0,12.5,0"
+         orientation="0,0,0"
+         size="0.1,25.0,0.5"
+         movable="false" />
+
+    <!--
+        You can distribute entities randomly. Here, we distribute
+        the entities in this way:
+        - the position is uniformly distributed
+        on the ground, in the square whose corners are (-1,-1) and (1,1)
+        - the orientations are non-zero only when rotating around Z and chosen
+        from a gaussian distribution, whose mean is zero degrees and
+        standard deviation is 360 degrees.
+    -->
+
+    <foot-bot id="fb_0"
+      position="-6.0,-6.0,0"
+      orientation="1,1,0"
+      wifi_enabled="false"
+      controller="fcentral" />
+   
+    <foot-bot id="fb_1"
+        position="0.5,0.5,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="fbase" />
+
+    <foot-bot id="fb_2"
+        position="24.5,24.5,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="fbase" />
+    
+    <!-- Agent Position  -->
+    
+    <foot-bot id="fb_3"
+        position="11.222,20.1792,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="fnav" />
+
+  
+    <foot-bot id="fb_4"
+        position="8.6167,20.1903,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="fnav" />
+
+   <foot-bot id="fb_5"
+        position="24.6114,15.6472,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="fnav" />
+
+    <foot-bot id="fb_6"
+        position="3.7736,24.819,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="fnav" />
+
+
+    <foot-bot id="fb_7"
+        position="13.7965,17.1667,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="fnav" />
+
+    <foot-bot id="fb_8"
+        position="9.4276,15.9307,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="fnav" />
+
+   <foot-bot id="fb_9"
+        position="21.8624,13.6649,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="fnav" />
+
+    <foot-bot id="fb_10"
+        position="12.3515,6.0426,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="fnav" />
+
+
+   <foot-bot id="fb_11"
+        position="24.3156,13.4337,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="fnav" />
+
+    
+   <foot-bot id="fb_12"
+        position="16.7079,20.8015,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="fnav" />
+   
+  
+   <!-- Relay Position  -->
+
+   <foot-bot id="fb_13"
+        position="4.6595,13.8297,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="frelay" />
+
+ <!--  <foot-bot id="fb_14"
+        position="17.0833,1.254,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="frelay" />
+
+    <foot-bot id="fb_15"
+        position="9.6503,12.9003,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="frelay" />
+
+     <foot-bot id="fb_16"
+        position="21.1626,8.2995,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="frelay" />
+    
+    <foot-bot id="fb_17"
+        position="7.9238,16.5113,0"
+        orientation="1,1,0"
+        wifi_enabled="true"
+        controller="frelay" />-->
+
+
+   
+   <!--  
+  this is necessary for robonetsim
+    -->
+    <wifi-medium id="wm" number_of_nodes="13"/>
+  </arena>
+  <media>
+    <led id="leds" />
+  </media>
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d" />
+  </physics_engines>
+
+  <!-- ************************************ -->
+  <!-- * Arena -> Physics Engines mapping * -->
+  <!-- ************************************ -->
+  <arena_physics>
+    <engine id="dyn2d">
+      <!--
+          You can use a regular expression to bind a set of entities.
+          See 'man 3 regex' to know more about regular expressions.
+      -->
+      <entity id="fb_[[:digit:]]*" />
+      <entity id="wall_north" />
+      <entity id="wall_south" />
+      <entity id="wall_east" />
+      <entity id="wall_west" />
+    </engine>
+  </arena_physics>
+ 
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+    <qtopengl_render splash="true">
+    <camera>
+    <placement idx="0" position="0,0,1" look_at="20,20,0" />
+    <placement idx="1" position="24.5,0,1" look_at="25,4,0" />
+    <placement idx="2" position="0,24.5,1" look_at="5,20,0" />
+    <placement idx="3" position="0,0,1" look_at="15,24.5,0" />
+    <placement idx="4" position="3.0,3.0,3" look_at="5,5,0" />
+    <placement idx="5" position="0.0,0.0,5" look_at="0,0,0" />
+    <placement idx="6" position="0.0,0.0,9" look_at="0,0,0" />
+    </camera>
+    </qtopengl_render>  
+  </visualization>
+
+</argos-configuration>

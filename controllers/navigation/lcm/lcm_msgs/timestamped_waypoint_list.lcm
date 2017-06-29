@@ -1,0 +1,9 @@
+
+package waypointlist;
+struct timestamped_waypoint_list_t
+{
+    int64_t  timestamp;
+    byte      robotid;
+    int32_t  n;
+    timestamped_waypoint_t   waypoints[n];
+}

@@ -1,0 +1,7 @@
+package waypointlist;
+struct timestamped_waypoint_t
+{
+    int64_t   timestamp;
+    int32_t   position[3];
+    int16_t   orientation[4]; 
+}
